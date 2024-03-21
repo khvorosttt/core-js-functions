@@ -148,7 +148,10 @@ function retry(func, attempts) {
     try {
       return func();
     } catch {
-      return retry(func, attempts - 1)();
+      if (attempts > 0) {
+        return retry(func, attempts - 1)();
+      }
+      return attempts;
     }
   };
 }
